@@ -65,7 +65,7 @@ public class OnlineLibraryApplication {
 
 			Connection connection = DriverManager.getConnection(url, username, password);
 			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE DATABASE IF NOT EXISTS library_db");
+			statement.executeUpdate("CREATE DATABASE IF NOT EXISTS online_library_management");
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
