@@ -58,18 +58,18 @@ public class OnlineLibraryApplication {
 	}
 
 	public static void createDatabaseIfNotExists() {
-		try {
-			String url = props.getProperty("db.url");
-			String username = props.getProperty("db.username");
-			String password = props.getProperty("db.password");
+		String url = props.getProperty("db.url");
+		String username = props.getProperty("db.username");
+		String password = props.getProperty("db.password");
+		String databaseName = props.getProperty("db.database");
 
-			Connection connection = DriverManager.getConnection(url, username, password);
-			Statement statement = connection.createStatement();
-			statement.executeUpdate("CREATE DATABASE IF NOT EXISTS online_library_management");
-			statement.close();
-			connection.close();
+		try (Connection connection = DriverManager.getConnection(url, username, password);
+				Statement statement = connection.createStatement()) {
+			String createDatabaseSql = "CREATE DATABASE IF NOT EXISTS " + databaseName;
+			statement.executeUpdate(createDatabaseSql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
